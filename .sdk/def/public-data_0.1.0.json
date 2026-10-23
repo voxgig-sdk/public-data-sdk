@@ -1,0 +1,378 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PublicDataHub export API",
+    "version": "1.0.0",
+    "summary": "Per-record exports of United States government reference data: public schools, school districts, Medicare-certified hospitals and federal agencies.",
+    "description": "Every response carries the agency, dataset, licence and effective date of the figures it contains. Values are reproduced from official federal releases and are never modelled or estimated; a null is a value the agency did not publish and never means zero.\n\nNo key and no rate limit. `robots.txt` disallows `/api/` for crawl budget, not permission — an on-demand request for one named record is expected and welcome; walking every slug is not. CSV twins of each export (/api/export/hospital/{slug}.csv, /api/export/agency/{slug}.csv, /api/export/school/{slug}.csv, /api/export/district/{slug}.csv) were removed on 2026-10-23: one entity cannot load from both a JSON and a CSV route.",
+    "license": {
+      "name": "Public domain (17 U.S.C. §105)",
+      "url": "https://publicdatahub.org/data/licences"
+    },
+    "contact": {
+      "name": "PublicDataHub",
+      "email": "support@publicdatahub.org",
+      "url": "https://publicdatahub.org/about"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://publicdatahub.org"
+    }
+  ],
+  "paths": {
+    "/api/export/hospital/{slug}.json": {
+      "get": {
+        "operationId": "getHospitalJson",
+        "summary": "One Medicare-certified hospital, with every reported measure and its national rank",
+        "tags": [
+          "hospital"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hospitalSlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The hospital record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entity"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadExtension"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/export/agency/{slug}.json": {
+      "get": {
+        "operationId": "getAgencyJson",
+        "summary": "One federal agency: budget authority, obligations and outlays",
+        "tags": [
+          "agency"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/agencySlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The agency record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entity"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadExtension"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/export/school/{slug}.json": {
+      "get": {
+        "operationId": "getSchoolJson",
+        "summary": "One public school: enrollment, teachers, student-teacher ratio, free-lunch share",
+        "tags": [
+          "school"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/schoolSlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The school record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entity"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadExtension"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/export/district/{slug}.json": {
+      "get": {
+        "operationId": "getDistrictJson",
+        "summary": "One school district: enrollment and the number of schools it runs",
+        "tags": [
+          "district"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/districtSlug"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The district record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Entity"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadExtension"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/api/status": {
+      "get": {
+        "operationId": "getStatus",
+        "summary": "Health and freshness of each dataset behind the API",
+        "tags": [
+          "meta"
+        ],
+        "responses": {
+          "200": {
+            "description": "Service reachable; every shard answered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "At least one database shard did not answer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "hospitalSlug": {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "description": "The hospital's stable slug, the same one its page uses at /hospital/{slug}. Find one through /search or the sitemap; slugs never change once published.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "example": "mayo-clinic-hospital-rochester"
+      },
+      "schoolSlug": {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "description": "The school's stable slug, the same one its page uses at /school/{slug}. Names collide heavily — hundreds of \"Lincoln High School\" — so resolve through /search rather than guessing, and see the us-public-data-lookup skill.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "example": "vashon-high"
+      },
+      "districtSlug": {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "description": "The district's stable slug, the same one its page uses at /district/{slug}.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "example": "houston-isd"
+      },
+      "agencySlug": {
+        "name": "slug",
+        "in": "path",
+        "required": true,
+        "description": "The agency's stable slug, the same one its page uses at /agency/{slug}.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "example": "department-of-the-treasury"
+      }
+    },
+    "responses": {
+      "BadExtension": {
+        "description": "The path did not end in .json or .csv",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No record carries that slug",
+        "content": {
+          "text/plain": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Entity": {
+        "type": "object",
+        "required": [
+          "name",
+          "measures",
+          "provenance"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "measures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "Stable identifier for the measure"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": [
+                    "number",
+                    "string",
+                    "null"
+                  ],
+                  "description": "null means the agency published no value for this record. It never means zero, and the two must not be conflated downstream."
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "national_rank": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "Rank within this entity type only, respecting the direction of the measure, so a low value wins where low is better. Never comparable across entity types."
+                },
+                "national_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "description": "How many records the rank is out of"
+                }
+              }
+            }
+          },
+          "provenance": {
+            "type": "object",
+            "description": "Where the figures came from. Present on every response, without exception.",
+            "properties": {
+              "agency": {
+                "type": "string"
+              },
+              "dataset": {
+                "type": "string"
+              },
+              "dataset_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "licence": {
+                "type": "string"
+              },
+              "as_of": {
+                "type": "string",
+                "format": "date",
+                "description": "The release these figures came from. Cite this, not the date you fetched them."
+              }
+            }
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "degraded"
+            ]
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "shards": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean"
+                },
+                "rows": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "error": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

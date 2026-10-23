@@ -1,0 +1,13 @@
+{
+  point: "warning"
+  note: "Points GET /api/export/agency/{slug}.json, GET /api/export/district/{slug}.json, GET /api/export/hospital/{slug}.json and GET /api/export/school/{slug}.json on entity=slug op=list have the same selector (exist: slug), so only GET /api/export/agency/{slug}.json is ever chosen. An action or another entity in guide.aontu tells them apart."
+  entity: "slug"
+  op: "list"
+  points: [
+    "GET /api/export/agency/{slug}.json"
+    "GET /api/export/district/{slug}.json"
+    "GET /api/export/hospital/{slug}.json"
+    "GET /api/export/school/{slug}.json"
+  ]
+
+}

@@ -1,0 +1,67 @@
+{
+  "existing": {
+    "slug": {
+      "SLUG00": {
+        "key": "s3c",
+        "label": "s3d",
+        "national_count": "s3e",
+        "national_rank": "s3f",
+        "unit": "s40",
+        "value": "s41",
+        "slug": "SLUG01"
+      },
+      "SLUG01": {
+        "key": "s78",
+        "label": "s79",
+        "national_count": "s7a",
+        "national_rank": "s7b",
+        "unit": "s7c",
+        "value": "s7d",
+        "slug": "SLUG01"
+      },
+      "SLUG02": {
+        "key": "sb4",
+        "label": "sb5",
+        "national_count": "sb6",
+        "national_rank": "sb7",
+        "unit": "sb8",
+        "value": "sb9",
+        "slug": "SLUG01"
+      }
+    }
+  },
+  "new": {
+    "slug": {
+      "slug_ref01": {
+        "key": "sf0",
+        "label": "sf1",
+        "national_count": "sf2",
+        "national_rank": "sf3",
+        "unit": "sf4",
+        "value": "sf5"
+      }
+    }
+  },
+  "requests": {
+    "GET /api/export/agency/{slug}.json": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /api/export/district/{slug}.json": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /api/export/hospital/{slug}.json": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    },
+    "GET /api/export/school/{slug}.json": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

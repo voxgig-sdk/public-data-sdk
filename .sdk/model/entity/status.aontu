@@ -1,0 +1,65 @@
+# Entity: status
+
+main: kit: entity: status: {
+
+  alias: field: {}
+
+  fields: {
+    checked_at: {
+      fo: "date-time"
+      h: "Checked At"
+      n: "checked_at"
+      r: false
+      t: "`$STRING`"
+    }
+    shards: {
+      h: "Shards"
+      n: "shards"
+      r: false
+      t: "`$OBJECT`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  name: "status"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /api/status"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/api/status"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "status"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

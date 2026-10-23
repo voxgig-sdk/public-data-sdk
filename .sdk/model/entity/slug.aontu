@@ -1,0 +1,278 @@
+# Entity: slug
+
+main: kit: entity: slug: {
+
+  alias: field: {}
+
+  fields: {
+    key: {
+      h: "Key"
+      n: "key"
+      r: false
+      sh: "Stable identifier for the measure"
+      t: "`$STRING`"
+    }
+    label: {
+      h: "Label"
+      n: "label"
+      r: false
+      t: "`$STRING`"
+    }
+    national_count: {
+      h: "National Count"
+      n: "national_count"
+      r: false
+      sh: "How many records the rank is out of"
+      t: [
+        "`$ONE`"
+        [
+          "`$INTEGER`"
+          "`$NULL`"
+        ]
+      ]
+    }
+    national_rank: {
+      h: "National Rank"
+      n: "national_rank"
+      r: false
+      sh: "Rank within this entity type only, respecting the direction of the measure, so a low value wins where low is better."
+      t: [
+        "`$ONE`"
+        [
+          "`$INTEGER`"
+          "`$NULL`"
+        ]
+      ]
+    }
+    unit: {
+      h: "Unit"
+      n: "unit"
+      r: false
+      t: [
+        "`$ONE`"
+        [
+          "`$STRING`"
+          "`$NULL`"
+        ]
+      ]
+    }
+    value: {
+      h: "Value"
+      n: "value"
+      r: false
+      sh: "null means the agency published no value for this record."
+      t: [
+        "`$ONE`"
+        [
+          "`$NUMBER`"
+          "`$STRING`"
+          "`$NULL`"
+        ]
+      ]
+    }
+  }
+
+  name: "slug"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/export/agency/{slug}.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "department-of-the-treasury"
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/export/agency/{slug}.json"
+          q: {
+            exist: [
+              "slug"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "export"
+            }
+            {
+              lit: "agency"
+            }
+            {
+              lit: "{slug}.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /api/export/district/{slug}.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "houston-isd"
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/export/district/{slug}.json"
+          q: {
+            exist: [
+              "slug"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "export"
+            }
+            {
+              lit: "district"
+            }
+            {
+              lit: "{slug}.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /api/export/hospital/{slug}.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "mayo-clinic-hospital-rochester"
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/export/hospital/{slug}.json"
+          q: {
+            exist: [
+              "slug"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "export"
+            }
+            {
+              lit: "hospital"
+            }
+            {
+              lit: "{slug}.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          co: {
+            id: "GET /api/export/school/{slug}.json"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "vashon-high"
+                k: "param"
+                n: "slug"
+                or: "slug"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/export/school/{slug}.json"
+          q: {
+            exist: [
+              "slug"
+            ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "export"
+            }
+            {
+              lit: "school"
+            }
+            {
+              lit: "{slug}.json"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

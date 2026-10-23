@@ -1,0 +1,21 @@
+{
+  "files": [
+    "SUMMARY.md"
+  ],
+  "config": ".sdk/doc/qa/vale.ini",
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "> Every response carries the agency, dataset, licence and effective date of the figures it contains. Values are reproduced from official federal releases and are never modelled or estimated; a null is a value the agency did not publish and never means zero.\n>\n> No key and no rate limit. `robots.txt` disallows `/api/` for crawl budget, not permission, an on-demand request for one named record is expected and welcome; walking every slug is not. CSV twins of each export (/api/export/hospital/&#123;slug&#125;.csv, /api/export/agency/&#123;slug&#125;.csv, /api/export/school/&#123;slug&#125;.csv, /api/export/district/&#123;slug&#125;.csv) were removed on 2026-10-23: one entity cannot load from both a JSON and a CSV route.",
+      "How many records the rank is out of",
+      "Rank within this entity type only, respecting the direction of the measure, so a low value wins where low is better. Never comparable across entity types.",
+      "Service reachable; every shard answered",
+      "Stable identifier for the measure",
+      "The agency record",
+      "The district record",
+      "The hospital record",
+      "The school record",
+      "null means the agency published no value for this record. It never means zero, and the two must not be conflated downstream."
+    ]
+  }
+}

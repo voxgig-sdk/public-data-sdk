@@ -1,0 +1,40 @@
+{
+  "existing": {
+    "status": {
+      "STATUS00": {
+        "checked_at": "s1e",
+        "shards": {},
+        "status": "s20",
+        "id": "STATUS00"
+      },
+      "STATUS01": {
+        "checked_at": "s3c",
+        "shards": {},
+        "status": "s3e",
+        "id": "STATUS01"
+      },
+      "STATUS02": {
+        "checked_at": "s5a",
+        "shards": {},
+        "status": "s5c",
+        "id": "STATUS02"
+      }
+    }
+  },
+  "new": {
+    "status": {
+      "status_ref01": {
+        "checked_at": "s78",
+        "shards": {},
+        "status": "s7a"
+      }
+    }
+  },
+  "requests": {
+    "GET /api/status": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

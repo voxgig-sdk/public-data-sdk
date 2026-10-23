@@ -1,0 +1,26 @@
+# BasicSlugFlow
+
+main: kit: flow: BasicSlugFlow:
+{
+  entity: "slug",
+  kind: "basic",
+  name: "BasicSlugFlow",
+  step: [
+    {
+      m: {
+        slug: "slug01"
+      }
+
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "slug_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicSlugFlow"
+}
